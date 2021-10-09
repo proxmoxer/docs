@@ -1,0 +1,36 @@
+site_name: Proxmoxer Documentation
+
+repo_url: https://github.com/proxmoxer/docs
+site_description: "Documentation for the Proxmoxer Python library"
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: octicons/sun-16
+        name: Switch to light mode
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: octicons/moon-16
+        name: Switch to dark mode
+
+  features:
+    - header.autohide
+    - navigation.instant # act as a single page application using XHR loading
+    - navigation.indexes # allow index.md for section header
+    - navigation.top # add a "Back to Top" button
+
+plugins:
+  - search:
+      indexing: "full"
+
+markdown_extensions:
+  - toc:
+      # permalink: 🔗
+      permalink: true
