@@ -1,0 +1,17 @@
+site_name: Proxmoxer Documentation
+
+repo_url: https://github.com/proxmoxer/docs
+site_description: "Documentation for the Proxmoxer Python library"
+
+nav:
+  - Home: index.md
+  - Setup: setup.md
+
+theme:
+  name: material
+  features:
+    - header.autohide
+
+plugins:
+  - search:
+      indexing: "full"

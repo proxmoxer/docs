@@ -22,7 +22,8 @@
 		"mhutchie.git-graph",
 		"streetsidesoftware.code-spell-checker",
 		"wengerk.highlight-bad-chars",
-		"yzhang.markdown-all-in-one"
+		"yzhang.markdown-all-in-one",
+		"redhat.vscode-yaml"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
