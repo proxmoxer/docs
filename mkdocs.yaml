@@ -1,13 +1,21 @@
 site_name: Proxmoxer Documentation
-
-repo_url: https://github.com/proxmoxer/docs
 site_description: "Documentation for the Proxmoxer Python library"
 
-nav:
-  - Home: index.md
+repo_name: proxmoxer/proxmoxer
+repo_url: https://github.com/proxmoxer/proxmoxer/
+edit_uri: https://github.com/proxmoxer/docs/edit/main/docs/
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js
+  - assets/js/custom.js
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark-dimmed.min.css
+  - assets/css/links.css
 
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - scheme: slate
       media: "(prefers-color-scheme: dark)"
@@ -22,15 +30,44 @@ theme:
 
   features:
     - header.autohide
-    - navigation.instant # act as a single page application using XHR loading
+    # - navigation.instant # act as a single page application using XHR loading
     - navigation.indexes # allow index.md for section header
     - navigation.top # add a "Back to Top" button
+    - search.suggest
 
 plugins:
+  - git-revision-date-localized:
+      type: date
   - search:
-      indexing: "full"
+      indexing: full
+  - minify:
+      minify_html: true
+      htmlmin_opts:
+        remove_comments: true
+  - autolinks
 
 markdown_extensions:
+  # default Python Markdown extensions
+  # https://python-markdown.github.io/extensions/
+  # mkDocs uses meta, toc, tables, and fenced_code extensions by default
   - toc:
-      # permalink: 🔗
       permalink: true
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+
+  # external extensions
+  # https://facelessuser.github.io/pymdown-extensions/extensions/arithmatex/
+  - pymdownx.details
+  - pymdownx.saneheaders
+  - pymdownx.superfences # allow code fences within other blocks
+  - pymdownx.snippets:
+      base_path: ["includes/", "."]
+  - pymdownx.highlight:
+      use_pygments: false # allow highlight.js to be used
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true

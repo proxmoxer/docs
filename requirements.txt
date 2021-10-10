@@ -1,1 +1,11 @@
+# installs compatible versions mkDocs and other deps
 mkdocs-material
+
+# mkDocs Plugins
+mkdocs-git-revision-date-localized-plugin
+mkdocs-minify-plugin
+mkdocs-exclude
+mkdocs-autolinks-plugin
+
+# Python Markdown extensions
+pymdown-extensions
