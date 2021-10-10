@@ -1,18 +1,19 @@
-# Welcome to MkDocs
+# Welcome to Proxmoxer
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Proxmoxer is a wrapper around the APIs for Proxmox products.
 
-## Commands
+It was inspired by slumber, but it is dedicated only to Proxmox. It allows not only REST API use over HTTPS, but the same api over SSH. Like [Proxmoxia](https://github.com/baseblack/Proxmoxia), it dynamically creates attributes which responds to the attributes you've attempted to reach.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Supported Services
 
-## Project layout
+* PVE ([API Spec](https://pve.proxmox.com/pve-docs/api-viewer/index.html))
+* PMG ([API Spec](https://pmg.proxmox.com/pmg-docs/api-viewer/index.html))
+* PBS ([API Spec](https://pbs.proxmox.com/docs/api-viewer/index.html))
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Supported connection Methods
 
+* HTTPS
+* SSH (openssh)
+* SSH (paramiko)
+
+--8<-- "abbreviations.md"

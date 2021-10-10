@@ -1,3 +1,5 @@
+# spell-checker:enableCompoundWords
+# spell-checker:ignore autohide pymdownx pygments
 site_name: Proxmoxer Documentation
 site_description: "Documentation for the Proxmoxer Python library"
 
@@ -75,3 +77,6 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+
+nav:
+  - Welcome to Proxmoxer: index.md
