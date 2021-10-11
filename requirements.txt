@@ -6,6 +6,7 @@ mkdocs-git-revision-date-localized-plugin
 mkdocs-minify-plugin
 mkdocs-exclude
 mkdocs-autolinks-plugin
+mdx_truly_sane_lists
 
 # Python Markdown extensions
 pymdown-extensions

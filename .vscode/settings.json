@@ -1,8 +1,11 @@
 {
   "cSpell.words": [
+    "backends",
     "fontawesome",
     "mkdocs",
     "octicons",
-    "Proxmoxer"
+    "paramiko",
+    "Proxmoxer",
+    "toolbelt"
   ],
 }

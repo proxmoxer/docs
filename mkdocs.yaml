@@ -65,6 +65,7 @@ markdown_extensions:
   - footnotes
 
   # external extensions
+  - mdx_truly_sane_lists
   # https://facelessuser.github.io/pymdown-extensions/extensions/arithmatex/
   - pymdownx.details
   - pymdownx.saneheaders
@@ -80,3 +81,4 @@ markdown_extensions:
 
 nav:
   - Welcome to Proxmoxer: index.md
+  - Setup: setup.md

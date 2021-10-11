@@ -10,10 +10,12 @@ It was inspired by slumber, but it is dedicated only to Proxmox. It allows not o
 * PMG ([API Spec](https://pmg.proxmox.com/pmg-docs/api-viewer/index.html))
 * PBS ([API Spec](https://pbs.proxmox.com/docs/api-viewer/index.html))
 
-## Supported connection Methods
+## Supported Connection Methods (Backends)
 
 * HTTPS
 * SSH (openssh)
 * SSH (paramiko)
+
+View the [Setup](setup/) page for details on how to setup your environment for each backend.
 
 --8<-- "abbreviations.md"
