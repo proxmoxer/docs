@@ -5,7 +5,9 @@
     "mkdocs",
     "octicons",
     "paramiko",
+    "Proxmox",
     "Proxmoxer",
+    "pycon",
     "toolbelt"
   ],
 }

@@ -35,7 +35,7 @@ theme:
         name: Switch to dark mode
 
   features:
-    - header.autohide
+    # - header.autohide
     # - navigation.instant # act as a single page application using XHR loading
     - navigation.indexes # allow index.md for section header
     - navigation.top # add a "Back to Top" button
@@ -82,3 +82,4 @@ markdown_extensions:
 nav:
   - Welcome to Proxmoxer: index.md
   - Setup: setup.md
+  - Basic Usage: basic_usage.md
