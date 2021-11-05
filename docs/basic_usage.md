@@ -132,3 +132,18 @@ For example, if you want to check the status of a command running in a VM, you w
 >>> prox.nodes("example-node").qemu("103").agent("exec-status").get(pid=5413)
 {'out-data': 'hello\n', 'exited': 1, 'exitcode': 0}
 ```
+
+#### Examples
+
+The following are all different ways of calling the same API path and will return the same result.
+
+```python
+prox.nodes(<node_name>).lxc.get()
+prox.nodes(<node_name>).get('lxc')
+prox.get('nodes/%s/lxc' % <node_name>)
+prox.get('nodes', <node_name>, 'lxc')
+prox('nodes')(<node_name>).lxc.get()
+prox(['nodes', <node_name>]).lxc.get()
+prox(['nodes', <node_name>]).get('lxc')
+prox('nodes')(<node_name>)('lxc').get()
+```
