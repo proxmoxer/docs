@@ -6,7 +6,8 @@
     {
       "label": "Serve",
       "type": "shell",
-      "command": "mkdocs serve"
+      "command": "mkdocs serve",
+      "problemMatcher": []
     },
     {
       "label": "Build",
