@@ -84,3 +84,5 @@ nav:
   - Setup: setup.md
   - Basic Usage: basic_usage.md
   - Development: development.md
+  - Examples:
+      - Tasks: examples/tasks.md
