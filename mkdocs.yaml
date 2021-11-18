@@ -39,6 +39,7 @@ theme:
     # - navigation.instant # act as a single page application using XHR loading
     - navigation.indexes # allow index.md for section header
     - navigation.top # add a "Back to Top" button
+    - navigation.expand
     - search.suggest
 
 plugins:
@@ -86,3 +87,4 @@ nav:
   - Development: development.md
   - Examples:
       - Tasks: examples/tasks.md
+      - Sending Files: examples/files.md
