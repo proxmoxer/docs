@@ -1,0 +1,9 @@
+# Disable warning about inconsistent code blocks due to detecting other indented types as code blocks
+code-block-style: false
+
+line-length: false # Disable line length limits
+no-trailing-spaces:
+  strict: true # warn about trailing whitespace that does nothing
+
+code-fence-style:
+  style: backtick
