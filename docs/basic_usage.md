@@ -1,4 +1,5 @@
-<!-- spell-checker:ignore userid vmid pythonic configurability -->
+<!-- spell-checker:ignore userid vmid pythonic configurability exitcode diskread diskwrite cpus -->
+<!-- spell-checker:ignore netin netout maxswap maxmem maxdisk -->
 # Basic Usage
 
 Proxmoxer is easy to use. After importing the library and creating an instance, interacting with the Proxmox service is simple and follows the API documentation.
@@ -25,7 +26,7 @@ proxmox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', password=
 
 This will default to connecting to a 'PVE' service using the `https` backend. To change these defaults, specify a `service` or `backend` parameter of a [supported service](index.md#supported-services) and/or a [supported backend](index.md#supported-backends).
 
-e.g. `proxmox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', backend='openssh', service='pmg')`
+e.g. `proxmox = ProxmoxAPI('<host_ip_or_domain>', user='<username>', backend='openssh', service='pmg')`
 
 ### Changing Ports
 
