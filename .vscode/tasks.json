@@ -4,19 +4,25 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Serve",
+      "label": "Serve Current Version",
       "type": "shell",
       "command": "mkdocs serve",
       "problemMatcher": []
     },
     {
-      "label": "Build",
+      "label": "Build Current Version",
       "type": "shell",
       "command": "mkdocs build",
       "group": {
         "kind": "build",
         "isDefault": true
       }
-    }
+    },
+    {
+      "label": "Serve All Versions",
+      "type": "shell",
+      "command": "mike serve",
+      "problemMatcher": []
+    },
   ]
 }

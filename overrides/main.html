@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block outdated %}
+<div style="text-align: center">
+  You're not viewing the latest released version.
+  <a href="{{ '../' ~ base_url }}">
+    <strong>Click here to go to latest.</strong>
+  </a>
+</div>
+{% endblock %}

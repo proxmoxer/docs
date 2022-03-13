@@ -14,8 +14,14 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark-dimmed.min.css
   - assets/css/links.css
 
+extra:
+  version:
+    provider: mike
+    # default: latest
+
 theme:
   name: material
+  # custom_dir: overrides
   icon:
     repo: fontawesome/brands/github
   palette:
@@ -35,7 +41,6 @@ theme:
         name: Switch to dark mode
 
   features:
-    # - header.autohide
     # - navigation.instant # act as a single page application using XHR loading
     - navigation.indexes # allow index.md for section header
     - navigation.top # add a "Back to Top" button
@@ -52,6 +57,8 @@ plugins:
       htmlmin_opts:
         remove_comments: true
   - autolinks
+  - mike:
+      version_selector: true
 
 markdown_extensions:
   # default Python Markdown extensions

@@ -1,6 +1,7 @@
 name: "Deploy to gh-pages branch"
 
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - main
@@ -31,5 +32,10 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      - name: Setup doc deploy
+        run: |
+          git config --global user.name Actions Builder
+          git config --global user.email builder@github.com
+
       - name: Deploy to gh-pages branch
-        run: mkdocs gh-deploy --remote-branch "gh-pages"
+        run: mike deploy --push dev

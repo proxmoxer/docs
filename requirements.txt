@@ -10,3 +10,7 @@ mdx_truly_sane_lists
 
 # Python Markdown extensions
 pymdown-extensions
+
+# Other tools
+# use dev version of 2.0 for .yaml support of mkdocs.yaml
+mike @ git+https://github.com/jimporter/mike.git@c730c448260c8934ce1c18e14df369da091ce23f
