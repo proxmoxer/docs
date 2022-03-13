@@ -1,0 +1,24 @@
+/*=-----------------------------------------=*/
+/*= Icons for certain link types: by target =*/
+/*=-----------------------------------------=*/
+
+/* copied from https://lyz-code.github.io/blue-book/stylesheets/links.css */
+
+/* Github; I exclude github.io because that's blogs */
+.md-content a[href*='github.com']:hover::after {
+  opacity: 0.5;
+}
+.md-content a[href*='github.com']::after {
+    mask: url("../svg/github.svg");
+    -webkit-mask: url("../svg/github.svg");
+    content: "";
+    background-color: var(--md-typeset-color);
+    display: inline-block;
+    position: static;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    height: 0.75em;
+    width: 0.75em;
+    margin: 0 0 2px 3px;
+    opacity: 0.2;
+}
