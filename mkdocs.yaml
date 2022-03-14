@@ -91,6 +91,7 @@ nav:
   - Welcome to Proxmoxer: index.md
   - Setup: setup.md
   - Basic Usage: basic_usage.md
+  - Authentication: authentication.md
   - Development: development.md
   - Examples:
       - Tasks: examples/tasks.md
