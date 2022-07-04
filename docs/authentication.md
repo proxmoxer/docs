@@ -111,3 +111,11 @@ prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>', password='<password>
 ```
 
 [^1]: [https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.connect](https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.connect)
+
+## Local
+
+The local backend requires no authentication, other than optionally utilizing sudo.
+
+```python
+prox = ProxmoxAPI(sudo=<True|False>, timeout=<timeout_in_seconds>, backend='local')
+```

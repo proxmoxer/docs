@@ -20,6 +20,7 @@ Below are the backends supported by this library.[^1]
 * HTTPS
 * SSH (openssh)
 * SSH (ssh_paramiko)
+* local
 
 View the [Setup](setup/) page for details on how to setup your environment for each backend.
 
