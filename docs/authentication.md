@@ -22,6 +22,7 @@ Password authentication is the default authentication method and what is used by
 * password
 
 For the `pve` realm, the password is set within the API/webUI. For other realms, the password is set in those tools (e.g. for the `pam` realm, the password is found in `/etc/passwd` (or really `/etc/shadow`) and can be set by running `passwd <username>` as root).
+If your user has a One Time Password (OTP) enabled, you will need to add the `otp` parameter and with your current OTP code to be able to authenticate. This is only required when first authenticating, as long as the requirements for authentication renewal are met (see below).
 
 ```python
 prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', password='<password>', otp='<otp_code>', service='<proxmox_service>', verify_ssl=<True|False>, timeout=<timeout_in_seconds>)
@@ -33,6 +34,14 @@ For example:
 prox = ProxmoxAPI('10.10.10.10', user='root@pam', password='password', verify_ssl=False)
 
 ```
+
+#### Renewing Authentication
+
+The authentication ticket retrieved using your username/password pair expires after 2 hours. To allow longer usage of proxmoxer, when a request is made close to the expiry of the ticket, the ticket is automatically renewed for another 2 hours. No user interaction is required for renewal and it will automatically be triggered by any request.
+
+If long-running usage of proxmoxer is required, the only requirement is to make a request within 2 hours of the most recent request. If the application will already make requests more regularly than 2 hours, no extra requests are needed to keep authentication valid. Any request will trigger an authentication renewal, so a basic `GET` (e.g. [getting version](https://pve.proxmox.com/pve-docs/api-viewer/index.html#/version)) every hour or so is enough to keep authentication current. For an alternative, see [API Tokens](#api-token) below for a stateless authentication method which allows fine-grain control over permissions and allows authentication expiry.
+
+Renewal also does not require OTP codes, so once initially authenticated with an OTP, proxmoxer can continue without user interaction.
 
 ### API Token
 
@@ -84,8 +93,8 @@ This backend supports password and key authentication.
 Paramiko uses the following order to attempt authentication:[^1]
 
 * private_key_file
-* Auto-discovered key files
 * SSH Agent
+* Auto-discovered key files
 * Password
 
 ### Key

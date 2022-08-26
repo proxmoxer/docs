@@ -21,11 +21,9 @@ prox.proxmox.nodes('<node_name>').storage('<storage_name>').upload.post(content=
 
 ## Downloading Files to PVE
 
-An alternative to downloading a file to your computer and then uploading it to your PVE instance, you can request PVE directly
-download the file from its URL.
+As an alternative to downloading a file to your computer and then uploading it to your PVE instance, you can request PVE directly download the file from its URL.
 
-Assuming `prox` is a valid `ProxmoxerAPI` object and `sourceURL` is a complete URL of a file to download. `content` is the same options as above
-and `filename` is the name the file will be saved as on the PVE storage.
+Assuming `prox` is a valid `ProxmoxerAPI` object and `sourceURL` is a complete URL of a file to download. `content` is the same options as above and `filename` is the name the file will be saved as on the PVE storage.
 
 ```python
 proxmox.nodes("<node_name>").storage("<storage_name>")("download-url").post(url=sourceURL, content="<content_type>", filename="<file_name.extension>")
