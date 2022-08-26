@@ -30,7 +30,7 @@ e.g. `proxmox = ProxmoxAPI('<host_ip_or_domain>', user='<username>', backend='op
 
 ### Changing Ports
 
-Proxmoxer (when using the https backend) will use the default port for the selected service to connect to the service. If you need to connect on a different port, adding either the `port=<port_number>` parameter or adding `:<port>` to the host can be used. A port in the host will override the `port` parameter.
+Proxmoxer (when using the https backend) will use the default port for the selected service to connect to the service. If you need to connect on a different port, adding either the `port=<port_number>` parameter or adding `:<port>` to the host can be used. A port in the host will override the `port` parameter. The `port` parameter can also be used for the SSH-based backends to change the port used to establish a SSH connection.
 
 ## Making API Calls
 
