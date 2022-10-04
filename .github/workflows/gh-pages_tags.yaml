@@ -1,10 +1,10 @@
-name: "Deploy main branch"
+name: "Deploy version tag"
 
 on:
   workflow_dispatch: {}
   push:
-    branches:
-      - main
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
   deploy:
@@ -14,6 +14,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0 # pull all commits so git info can be pulled for all files
+
+      - name: Parse Semver
+        id: semver
+        uses: booxmedialtd/ws-action-parse-semver@v1
+        with:
+          input_string: ${{ github.ref_name }}
+          version_extractor_regex: v(.*)
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -38,4 +45,4 @@ jobs:
           git config --global user.email builder@github.com
 
       - name: Deploy to gh-pages branch
-        run: mike deploy --push dev
+        run: mike deploy --push ${{ steps.semver.outputs.major }}.${{ steps.semver.outputs.minor }}
