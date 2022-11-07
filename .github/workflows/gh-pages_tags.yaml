@@ -1,0 +1,86 @@
+name: "Deploy version tag"
+
+on:
+  workflow_dispatch: {}
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # pull all commits so git info can be pulled for all files
+
+      - name: Parse Semver
+        id: ref-semver
+        uses: booxmedialtd/ws-action-parse-semver@v1
+        with:
+          input_string: ${{ github.ref_name }}
+          version_extractor_regex: v(.*)
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Cache Dependencies
+        id: pip-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Setup doc deploy
+        run: |
+          git config --global user.name "Actions Builder"
+          git config --global user.email builder@github.com
+
+      - name: Deploy to gh-pages branch
+        run: mike deploy --push ${{ steps.ref-semver.outputs.major }}.${{ steps.ref-semver.outputs.minor }}
+
+      ####### Update the "latest" alias #######
+      - name: Get latest git and mike versions
+        id: latest
+        run: |
+          echo "Git tags found:" ; git tag --list v[0-9]*
+          gv=$(git tag --list v[0-9]* | sort --version-sort | tail -n 1)
+          echo "git=$gv" >> $GITHUB_OUTPUT
+          echo using latest tag of $gv
+
+          mv=$(mike list --json | jq --raw-output '.[] | select( .aliases | index("latest") ).version')
+          echo "mike=$mv" >> $GITHUB_OUTPUT
+          echo "version \"$mv\" currently has the \"latest\" mike alias"
+
+      - name: Parse Latest Semver
+        id: git-semver
+        uses: booxmedialtd/ws-action-parse-semver@v1
+        with:
+          input_string: ${{ steps.latest.outputs.git }}
+          version_extractor_regex: v(.*)
+
+      - name: Show Parsed Versions
+        id: versions
+        run: |
+          echo git=${{ steps.git-semver.outputs.major }}.${{ steps.git-semver.outputs.minor }} >> $GITHUB_OUTPUT
+          echo mike=${{ steps.latest.outputs.mike }} >> $GITHUB_OUTPUT
+          echo latest git tag version: ${{ steps.git-semver.outputs.major }}.${{ steps.git-semver.outputs.minor }}
+          echo Mike "latest" version: ${{ steps.latest.outputs.mike }}
+
+      - name: Show mike versions before change
+        run: mike list
+
+      - name: Update "latest"
+        if: ${{ steps.versions.outputs.mike != steps.versions.outputs.git }}
+        run: mike alias --update-aliases --push ${{ steps.versions.outputs.git }} latest
+
+      - name: Show mike versions after change
+        run: mike list

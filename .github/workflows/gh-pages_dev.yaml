@@ -1,4 +1,4 @@
-name: "Deploy to gh-pages branch"
+name: "Deploy main branch"
 
 on:
   workflow_dispatch: {}
@@ -34,7 +34,7 @@ jobs:
 
       - name: Setup doc deploy
         run: |
-          git config --global user.name Actions Builder
+          git config --global user.name "Actions Builder"
           git config --global user.email builder@github.com
 
       - name: Deploy to gh-pages branch
