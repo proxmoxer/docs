@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0 # pull all commits so git info can be pulled for all files
 
       - name: Parse Semver
-        id: semver
+        id: ref-semver
         uses: booxmedialtd/ws-action-parse-semver@v1
         with:
           input_string: ${{ github.ref_name }}
@@ -41,50 +41,46 @@ jobs:
 
       - name: Setup doc deploy
         run: |
-          git config --global user.name Actions Builder
+          git config --global user.name "Actions Builder"
           git config --global user.email builder@github.com
 
       - name: Deploy to gh-pages branch
-        run: mike deploy --push ${{ steps.semver.outputs.major }}.${{ steps.semver.outputs.minor }}
+        run: mike deploy --push ${{ steps.ref-semver.outputs.major }}.${{ steps.ref-semver.outputs.minor }}
 
       ####### Update the "latest" alias #######
-      - name: List version tags
-        run: git tag --list v[0-9]*
-
-      - name: Get highest version tag
-        id: get-latest
+      - name: Get latest git and mike versions
+        id: latest
         run: |
-          echo ::set-output name=latest-tag::$(git tag --list v[0-9]* | tail -n 1)
-          echo using latest tag of $(git tag --list v[0-9]* | tail -n 1)
+          echo "Git tags found:" ; git tag --list v[0-9]*
+          gv=$(git tag --list v[0-9]* | sort --version-sort | tail -n 1)
+          echo "git=$gv" >> $GITHUB_OUTPUT
+          echo using latest tag of $gv
 
-      - name: Get current "latest" real version
-        id: mike-latest
-        run: |
           mv=$(mike list --json | jq --raw-output '.[] | select( .aliases | index("latest") ).version')
-          echo ::set-output name=latest-version::$mv
-          echo version "$mv" currently has the "latest" alias
+          echo "mike=$mv" >> $GITHUB_OUTPUT
+          echo "version \"$mv\" currently has the \"latest\" mike alias"
 
       - name: Parse Latest Semver
-        id: semver-latest
+        id: git-semver
         uses: booxmedialtd/ws-action-parse-semver@v1
         with:
-          input_string: ${{ steps.get-latest.outputs.latest-tag }}
+          input_string: ${{ steps.latest.outputs.git }}
           version_extractor_regex: v(.*)
 
-      - name: Show Parsed versions
+      - name: Show Parsed Versions
         id: versions
         run: |
-          echo ::set-output name=tag::${{ steps.semver-latest.outputs.major }}.${{ steps.semver-latest.outputs.minor }}
-          echo ::set-output name=mike::${{ steps.mike-latest.outputs.latest-version }}
-          echo latest tag version: ${{ steps.semver-latest.outputs.major }}.${{ steps.semver-latest.outputs.minor }}
-          echo Mike "latest" version: ${{ steps.mike-latest.outputs.latest-version }}
+          echo git=${{ steps.git-semver.outputs.major }}.${{ steps.git-semver.outputs.minor }} >> $GITHUB_OUTPUT
+          echo mike=${{ steps.latest.outputs.mike }} >> $GITHUB_OUTPUT
+          echo latest git tag version: ${{ steps.git-semver.outputs.major }}.${{ steps.git-semver.outputs.minor }}
+          echo Mike "latest" version: ${{ steps.latest.outputs.mike }}
 
       - name: Show mike versions before change
         run: mike list
 
       - name: Update "latest"
-        if: ${{ steps.versions.outputs.mike != steps.versions.outputs.tag }}
-        run: mike alias --update-aliases --push ${{ steps.versions.outputs.tag }} latest
+        if: ${{ steps.versions.outputs.mike != steps.versions.outputs.git }}
+        run: mike alias --update-aliases --push ${{ steps.versions.outputs.git }} latest
 
       - name: Show mike versions after change
         run: mike list

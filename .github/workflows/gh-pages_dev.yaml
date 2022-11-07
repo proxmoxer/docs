@@ -34,7 +34,7 @@ jobs:
 
       - name: Setup doc deploy
         run: |
-          git config --global user.name Actions Builder
+          git config --global user.name "Actions Builder"
           git config --global user.email builder@github.com
 
       - name: Deploy to gh-pages branch
