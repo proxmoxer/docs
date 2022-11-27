@@ -93,6 +93,8 @@ nav:
   - Basic Usage: basic_usage.md
   - Authentication: authentication.md
   - Development: development.md
+  - Migration:
+      - v1 to v2: v1_migration.md
   - Examples:
       - Tasks: examples/tasks.md
       - Sending Files: examples/files.md
