@@ -95,6 +95,9 @@ nav:
   - Development: development.md
   - Migration:
       - v1 to v2: v1_migration.md
+  - Tools:
+      - Intro: tools/intro.md
+      - Tasks: tools/tasks.md
   - Examples:
       - Tasks: examples/tasks.md
       - Sending Files: examples/files.md

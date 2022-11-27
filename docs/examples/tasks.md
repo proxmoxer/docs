@@ -5,8 +5,7 @@
 
 ### What is a task UPID?
 
-Most actions on Proxmox services are backed by tasks. These are visible in the web UI
-and are created when automation or users request actions be completed.
+Most actions on Proxmox services are backed by tasks. These are visible in the web UI and are created when automation or users request actions be completed.
 
 Tasks are uniquely identified by a UPID which follows the format
 
@@ -45,13 +44,11 @@ what was done in that task. The log contains a list of dicts which are `{'n': <i
 
 ## Tasks in Progress
 
-While tasks are active, the `status` endpoint returns information on the setup and start of the task
-and a status or "running".
+While tasks are active, the `status` endpoint returns information on the setup and start of the task and a status or "running".
 
 ### Blocking Until Task is Complete
 
-Many API endpoints will return a task UPID while the task completes in the background. While this
-can be useful to allow asynchronous execution, often you may desire to wait (block) for a task to finish.
+Many API endpoints will return a task UPID while the task completes in the background. While this can be useful to allow asynchronous execution, often you may desire to wait (block) for a task to finish.
 
 The code below provides a (very) basic way of polling the API until the task completes.
 
