@@ -2,7 +2,7 @@
 
 Documentation for the proxmoxer python library
 
-This documentation is available ato <https://proxmoxer.github.io/docs>
+This documentation is available at <https://proxmoxer.github.io/docs>
 
 [![Deploy main ("dev") branch](https://github.com/proxmoxer/docs/actions/workflows/gh-pages_dev.yaml/badge.svg?branch=main)](https://proxmoxer.github.io/docs/dev/)
 
