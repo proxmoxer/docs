@@ -12,7 +12,7 @@ UPID:<node_name>:<pid_in_hex>:<pstart_in_hex>:<starttime_in_hex>:<type>:<id (opt
 
 ## Class Methods
 
-The functionality of the Tasks tools class is available through static methods. This means you don not need to instantiate a Tasks object to be able to call the methods.
+The functionality of the Tasks tools class is available through static methods. This means you do not need to instantiate a Tasks object to be able to call the methods.
 
 ### blocking_status
 
