@@ -50,8 +50,7 @@ theme:
 plugins:
   - git-revision-date-localized:
       type: date
-  - search:
-      indexing: full
+  - search
   - minify:
       minify_html: true
       htmlmin_opts:
