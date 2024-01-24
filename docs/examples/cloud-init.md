@@ -1,4 +1,6 @@
-# Setting Cloud-init userdata.
+<!-- spell-checker:ignore nocloud Cloudbase configdrive ciuser cipassword ciupgrade cicustom sshkeys nameserver searchdomain nextid -->
+<!-- spell-checker:ignore newid urlencoding urllib urlparse userdata -->
+# Configuring new VMs with Cloud-init
 
 ## What does Cloud-init do?
 
@@ -13,7 +15,7 @@ system, where an initialization agent (such as cloud-init) looks for a so-called
 transparently served from a reserved IP class or locally attached ISO image),
 and applies the various settings specified within said cloud config (e.g. creating a new user).
 
-## Cloud-init settings on Proxmox PVE.
+## Cloud-init settings on Proxmox PVE
 
 The Proxmox PVE API allows users to set specific properties within the cloud config
 to be used during the initial run of Cloud-init within the guest OSes on first boot,
@@ -25,13 +27,13 @@ such as:
 * Some additional options, such as performing automatic package manager updates
   on Linux guests, static networking settings, and more.
 
-## Template Prerequisites.
+## Template Prerequisites
 
 In order for the Cloud-init instance options to be applied, the VM image being
 booted must have a pre-installed agent which is able to read the the
 [cloud config data format](https://cloudinit.readthedocs.io/en/latest/reference/examples.html).
 
-### Linux templates.
+### Linux templates
 
 On Linux guests, the so-called [`nocloud` data source](https://cloudinit.readthedocs.io/en/latest/reference/datasources/nocloud.html)
 is used to pass the cloud config to the guest OS, so the Cloud-init
@@ -39,10 +41,10 @@ installation within the VM image being booted must be configured to use it.
 
 In most situations, using pre-baked Linux "golden images" (such as the upstream
 [Canonical Ubuntu Server images](https://cloud-images.ubuntu.com)) should work
-out of the box, though some additional pre-cusomization (such as installing the
-`qemu-guest-agent`) might be required for better compatiblity with PVE.
+out of the box, though some additional pre-customization (such as installing the
+`qemu-guest-agent`) might be required for better compatibility with PVE.
 
-### Windows templates.
+### Windows templates
 
 For Windows guests, the industry-standard initialization agent implementation is
 [Cloudbase-init](https://github.com/cloudbase/cloudbase-init).
@@ -51,12 +53,12 @@ On Windows guests, the so-called [`configdrive2` data source](https://cloudinit.
 is used to pass the cloud config to the guest OS, so the Windows image must
 have Cloudbase-init configured to use it.
 
-WARN: as of the time of writing, there are some known issues with
-the formatting of some fields of the cloud-config for Windows guests (most
-notably, the [inability set passwords through the cloud-config](https://bugzilla.proxmox.com/show_bug.cgi?id=4493)).
+!!! warning "Issues on Windows"
+    as of the time of writing, there are some known issues with
+    the formatting of some fields of the cloud-config for Windows guests (most
+    notably, the [inability set passwords through the cloud-config](https://bugzilla.proxmox.com/show_bug.cgi?id=4493)).
 
-
-## Example code setting cloud-init options.
+## Example code setting cloud-init options
 
 The current PVE API allows for the transparent configuration of a number of
 guest initialization options via the [VM's `config` properties](https://pve.proxmox.com/pve-docs/api-viewer/index.html#/nodes/{node}/qemu/{vmid}/config).
@@ -66,11 +68,12 @@ guest initialization options via the [VM's `config` properties](https://pve.prox
 * `sshkeys` (str): public SSH keys to be automatically added as authorized for
   the above `ciuser`.
 * `ciupgrade` (bool): whether or not to automatically update packages on first
-  boot. NOTE: the default is `True`, and it may negatively impact applications
+  boot.  
+  **NOTE:** the default is `True`, and it may negatively impact applications
   expecting fixed dependency versions.
 * `cicustom` (str): allows for specifying the entirety of the Cloud-init config file.
 * `ipconfigN` (str): specifies IP settings for the guests network interface
-  with index N (e.g. `ip=192.168.125.25/32,gw=192.168.0.1`). Omitting this will
+  with index `N` (e.g. `ip=192.168.125.25/32,gw=192.168.0.1`). Omitting this will
   have cloud-init attempt DHCPv4 on said interface.
 * `nameserver` (str): list of DNS nameservers to configure within the guest.
 * `searchdomain` (str): DNS search domain to use. Omitting this will have the
@@ -82,12 +85,14 @@ guest initialization options via the [VM's `config` properties](https://pve.prox
 TEMPLATE_ID = 200
 
 clone_vm_id = int(proxmox.cluster.nextid.get())
-clone = proxmox.nodes("<node_name>").qemu(TEMPLATE_ID).clone.create(newid=clone_vm_id)
+clone_task = proxmox.nodes("<node_name>").qemu(TEMPLATE_ID).clone.create(newid=clone_vm_id)
 
-# NOTE: might need to wait 10s for cloning complete. See docs on PVE 'tasks'.
-time.sleep(10)
+# NOTE: should either wait a fixed time for the clone to complete, or check the status of the clone task
+#time.sleep(10)
+from proxmoxer.tools import Tasks
+Tasks.blocking_status(proxmox, clone_task)
 
-# NOTE: the `sshkeys` aatribute requires manual urlencoding on our end.
+# NOTE: the `sshkeys` attribute requires manual urlencoding on our end.
 # Please see https://github.com/proxmoxer/proxmoxer/issues/153.
 from urllib import parse as urlparse
 
