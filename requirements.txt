@@ -12,5 +12,4 @@ mdx_truly_sane_lists
 pymdown-extensions
 
 # Other tools
-# use dev version of 2.0 for .yaml support of mkdocs.yaml
 mike

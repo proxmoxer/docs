@@ -6,25 +6,27 @@
 		"dockerfile": "Dockerfile",
 		"context": "..",
 		"args": {
-			// Update 'VARIANT' to pick a Python version: 3, 3.9, 3.8, 3.7, 3.6.
+			// Update 'VARIANT' to pick a Python version: 3, 3.12, 3.11, 3.10, 3.9.
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "3",
+			"VARIANT": "3.12"
 		}
 	},
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"python.pythonPath": "/usr/local/bin/python",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.pythonPath": "/usr/local/bin/python"
+			},
+			"extensions": [
+				"davidanson.vscode-markdownlint",
+				"mhutchie.git-graph",
+				"streetsidesoftware.code-spell-checker",
+				"wengerk.highlight-bad-chars",
+				"yzhang.markdown-all-in-one",
+				"redhat.vscode-yaml"
+			]
+		}
 	},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"davidanson.vscode-markdownlint",
-		"mhutchie.git-graph",
-		"streetsidesoftware.code-spell-checker",
-		"wengerk.highlight-bad-chars",
-		"yzhang.markdown-all-in-one",
-		"redhat.vscode-yaml"
-	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		8000
