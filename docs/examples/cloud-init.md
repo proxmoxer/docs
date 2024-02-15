@@ -114,5 +114,5 @@ proxmox.nodes("<node_name>").qemu(clone_vm_id).config.set(
 
 # Start the machine normally, and give cloud-init a minute for its initial run.
 # You should be able to see cloud-init's logs within the VM console in the PVE UI.
-proxmox.nodes("<node_name>").qemu(clone_vm_id).status.start()
+proxmox.nodes("<node_name>").qemu(clone_vm_id).status.start.post()
 ```
