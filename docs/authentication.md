@@ -59,6 +59,29 @@ For example:
 prox = ProxmoxAPI('10.10.10.10', user='my_user@pam', token_name='testToken', token_value='41c97f11-b8c6-47db-9886-7fa841e64b6e', verify_ssl=False)
 ```
 
+### OIDC credentials provided by proxmox-oidc-credential-helper
+
+First install binary for [proxmox-oidc-credential-helper](https://github.com/camaeel/proxmox-oidc-credential-helper/) in $PATH. This small utility opens browser and uses OIDC authentication in proxmox UI to obtain Ticket. This ticket can be later used as password for proxmoxer. 
+
+Example code:
+```python
+#!/usr/bin/env python3
+
+from proxmoxer import ProxmoxAPI
+import json
+import subprocess
+
+proxmox_host = 'proxmox.example.com'
+proxmox_port = 8006
+realm = "realm1"
+
+creds_helper_output = subprocess.run(f"proxmox-oidc-credential-helper -proxmox-url https://{proxmox_host}:{proxmox_port} -realm {realm} -output=json", shell=True, capture_output=True)
+creds_helper_json = json.loads(creds_helper_output.stdout)
+
+pve = ProxmoxAPI(proxmox_host, user = creds_helper_json['data']['username'], password = creds_helper_json['data']['ticket'], verify_ssl=True)
+print(pve.nodes.get())
+```
+
 ## OpenSSH Backend
 
 !!! info "Supported Services: PVE, PMG"
