@@ -25,7 +25,7 @@ For the `pve` realm, the password is set within the API/webUI. For other realms,
 If your user has a One Time Password (OTP) enabled, you will need to add the `otp` parameter and with your current OTP code to be able to authenticate. This is only required when first authenticating, as long as the requirements for authentication renewal are met (see below).
 
 ```python
-prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', password='<password>', otp='<otp_code>', service='<proxmox_service>', verify_ssl=<True|False>, timeout=<timeout_in_seconds>)
+prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', password='<password>', otp='<otp_code>', service='<proxmox_service>', verify_ssl=<True|False|"path to CA cert">, timeout=<timeout_in_seconds>)
 ```
 
 For example:
@@ -50,7 +50,7 @@ Renewal also does not require OTP codes, so once initially authenticated with an
 The API Token allows stateless interaction with the Proxmox service as well as independent permissions and more flexibility in credential lifecycle management. Abused/leaked API Tokens can be disabled independent of the account with which they are associated and multiple API Tokens can be created for a user, allowing each use its own API Token with only its needed permissions which can be independently managed.
 
 ```python
-prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', token_name='<token_name>', token_value='<token_value>', service='<proxmox_service>', verify_ssl=<True|False>, timeout=<timeout_in_seconds>)
+prox = ProxmoxAPI('<host_ip_or_domain>', user='<username>@<realm>', token_name='<token_name>', token_value='<token_value>', service='<proxmox_service>', verify_ssl=<True|False|"path to CA cert">, timeout=<timeout_in_seconds>)
 ```
 
 For example:
